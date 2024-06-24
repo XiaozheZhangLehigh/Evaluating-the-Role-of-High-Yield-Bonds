@@ -199,6 +199,15 @@ def plot_top_drawdowns(returns, top_n=5):
     running_max = cumulative_return.cummax()
     drawdown = (cumulative_return - running_max) / running_max
     drawdown_periods = drawdown[drawdown < 0].groupby((drawdown == 0).cumsum()).min().nsmallest(top_n)
+    
+    
+    # print("Identified drawdown periods and their corresponding time periods:")
+    # for i, period in enumerate(drawdown_periods.index):
+    #     if period - 1 < len(drawdown[drawdown == 0].index):
+    #         start = drawdown[drawdown == 0].index[period - 1]
+    #         end = drawdown[drawdown == 0].index[period] if period < len(drawdown[drawdown == 0].index) else drawdown.index[-1]
+    #         print(f"Drawdown {i+1}: Start = {start}, End = {end}, Drawdown = {drawdown_periods.iloc[i]}")
+
     plt.figure(figsize=(12, 6))
     plt.plot(cumulative_return, label='Portfolio')
     plt.title(f'Top {top_n} Drawdown Periods')
