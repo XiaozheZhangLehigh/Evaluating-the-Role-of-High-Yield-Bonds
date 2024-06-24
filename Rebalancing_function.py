@@ -311,7 +311,8 @@ def plot_returns_analysis(returns):
     monthly_returns_matrix = monthly_returns_pct.to_frame(name='Returns').reset_index()
     monthly_returns_matrix['Year'] = monthly_returns_matrix['Date'].dt.year
     monthly_returns_matrix['Month'] = monthly_returns_matrix['Date'].dt.month
-    monthly_returns_matrix = monthly_returns_matrix.pivot('Year', 'Month', 'Returns')
+    # monthly_returns_matrix = monthly_returns_matrix.pivot('Year', 'Month', 'Returns')
+    monthly_returns_matrix = monthly_returns_matrix.pivot(index = 'Year', columns = 'Month', values = 'Returns')
     sns.heatmap(monthly_returns_matrix, cmap='YlGnBu', ax=axes[0], annot=True, fmt=".1f")
     axes[0].set_title('Monthly Returns (%)')
     axes[0].set_xlabel('Month')
